@@ -4,6 +4,8 @@
 Texture2D		g_texture : register(t0);	//テクスチャー
 SamplerState	g_sampler : register(s0);	//サンプラー
 
+Texture2D		g_toon_texture : register(t1);
+
 //───────────────────────────────────────
 // コンスタントバッファ
 // DirectX 側から送信されてくる、ポリゴン頂点以外の諸情報の定義
@@ -74,24 +76,57 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-	float4 lightSource = float4(1.0, 1.0, 1.0, 1.0);
+	float4 lightSource = float4(1.0, 1.0, 1.0, 1.0);		//ライト色＆明るさ　Iin
+	float ambentSource = float4(0.2, 0.2, 0.2, 1.0);		//アンビエント係数　Ka
 	float4 diffuse;
 	float4 ambient;
 	float4 NL = saturate(dot(inData.normal, normalize(lightPosition)));
 	//float4 reflect = normalize(2 * NL * inData.normal - normalize(lightPosition));
 	float4 reflection = reflect(normalize(-lightPosition), inData.normal);
 	float4 specular = pow(saturate(dot(reflection, normalize(inData.eyev))), shininess) * specularColor;
-	if (isTextured == 0)
-	{
-		diffuse = lightSource * diffuseColor * inData.color;
-		ambient = lightSource * diffuseColor * ambientColor;
-	}
-	else
-	{
-		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
-		ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
-	}
-	return diffuse + ambient + specular;
+	//この辺で拡散販社の値をいろいろとする
+	float4 n1 = float4(1 / 4.0, 1/4.0, 1/4.0,1);
+	float4 n2 = float4(2 / 4.0, 2 / 4.0, 2 / 4.0, 1);
+	float4 n3 = float4(3 / 4.0, 3 / 4.0, 3 / 4.0, 1);
+	float4 n4 = float4(4 / 4.0, 4 / 4.0, 4 / 4.0, 1);
+
+	float4 tI = 0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
+		+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);
+
+	float2 uv;
+
+	uv.x = inData.color.x;
+	uv.y = 0;
+
+	return g_toon_texture.Sample(g_sampler, uv);
+
+	//if (inData.color.x < 1 / 30)
+	//{
+	//	nk = float4();
+	//}
+	//else if (inData.color.x < 2 / 3.0)
+	//{
+	//	nk = float4();
+	//}
+	//else
+	//{
+	//	nk = float4(1.0, 1.0, 1.0, 1.0)
+	//}
+
+
+	//if (isTextured == 0)
+	//{
+	//	diffuse = lightSource * diffuseColor * inData.color;
+	//	ambient = lightSource * diffuseColor * ambientColor;
+	//}
+	//else
+	//{
+	//	diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
+	//	ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
+	//}
+	/*return diffuse + ambient;*/
+	//return diffuse + ambient + specular;
+	//return diffuse;
 
 	
 	//return g_texture.Sample(g_sampler, inData.uv);

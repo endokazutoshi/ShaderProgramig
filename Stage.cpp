@@ -72,7 +72,7 @@ void Stage::Initialize()
 void Stage::Update()
 {
 
-    if (Input::IsKeyUp(DIK_SPACE))
+    if (Input::IsKeyUp(DIK_SPACE)) //モデルの明るさの変更
     {
         Model::ToggleRenderState();
     }
@@ -81,7 +81,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_RIGHT))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x+0.1f, p.y+0.0f, p.z+ 0.0f, p.w + 0.0f };
+        XMFLOAT4 margin{ p.x+0.3f, p.y+0.0f, p.z+ 0.0f, p.w + 0.0f };
         
         //Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -89,7 +89,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_LEFT))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x - 0.1f, p.y - 0.0f, p.z - 0.0f, p.w - 0.0f };
+        XMFLOAT4 margin{ p.x - 0.3f, p.y - 0.0f, p.z - 0.0f, p.w - 0.0f };
 
        /// Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -97,7 +97,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_UP))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x - 0.0f, p.y + 0.1f, p.z - 0.0f, p.w - 0.0f };
+        XMFLOAT4 margin{ p.x - 0.0f, p.y + 0.3f, p.z - 0.0f, p.w - 0.0f };
 
         //Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -105,7 +105,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_DOWN))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.1f, p.z - 0.0f, p.w - 0.0f };
+        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.3f, p.z - 0.0f, p.w - 0.0f };
 
         //Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -113,7 +113,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_W))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.0f, p.z + 0.1f, p.w + 0.0f };
+        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.0f, p.z + 0.3f, p.w + 0.0f };
 
         //Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -121,7 +121,7 @@ void Stage::Update()
     if (Input::IsKey(DIK_S))
     {
         XMFLOAT4 p = GetLightPos();
-        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.0f, p.z - 0.1f, p.w - 0.0f };
+        XMFLOAT4 margin{ p.x - 0.0f, p.y - 0.0f, p.z - 0.3f, p.w - 0.0f };
 
         //Model::GetModel(hModel_)->SetLightPos(margin);
         SetLightPos(margin);
@@ -136,8 +136,8 @@ void Stage::Update()
     Direct3D::pContext_->UpdateSubresource(pCBStageScene_, 
         0, NULL, &cb, 0, 0);
 
-    Direct3D::pContext_->VSSetConstantBuffers(1, 1, &pCBStageScene_);	//頂点シェーダー用	
-    Direct3D::pContext_->PSSetConstantBuffers(1, 1, &pCBStageScene_);	//ピクセルシェーダー用
+    Direct3D::pContext_->VSSetConstantBuffers(1, 1, &pCBStageScene_);	//頂点シェーダー	
+    Direct3D::pContext_->PSSetConstantBuffers(1, 1, &pCBStageScene_);	//ピクセルシェーダー
 }
 
 //描画

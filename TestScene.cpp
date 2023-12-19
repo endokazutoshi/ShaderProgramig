@@ -11,7 +11,7 @@ TestScene::TestScene(GameObject* parent)
 
 void TestScene::Initialize()
 {
-	Instantiate<Stage>(this);
+	Instantiate<Stage>(this);		//ステージを読み込む
 }
 
 void TestScene::Update()
