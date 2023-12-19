@@ -45,11 +45,11 @@ void Stage::Initialize()
 {
     //モデルデータのロード
     hModel_ = Model::Load("assets/fiveO.fbx");
-    hGround_ = Model::Load("assets/Ground.fbx");
+    //hGround_ = Model::Load("assets/Ground.fbx");
     hLightBall_ = Model::Load("assets/RedBall.fbx");
     
     assert(hModel_ >= 0);
-    assert(hGround_ >= 0);
+    //assert(hGround_ >= 0);
     assert(hLightBall_ >= 0);
     Camera::SetPosition(XMVECTOR{ 0, 10, -20, 0 });
     Camera::SetTarget(XMVECTOR{ 0, 2, 0, 0 });
@@ -57,9 +57,9 @@ void Stage::Initialize()
     trDonuts.rotate_ = { 0, 0, 0 };
     trDonuts.scale_ = {  1,1,1 };
 
-    trGround.position_ = { 0, 0, 0 };
+   /* trGround.position_ = { 0, 0, 0 };
     trGround.rotate_ = { 0, 0, 0};
-    trGround.scale_ = { 10, 10, 10 };
+    trGround.scale_ = { 10, 10, 10 };*/
 
     trLightBall.position_ = { 0, 0, 0 };
     trLightBall.rotate_ = { 0, 0, 0 };
