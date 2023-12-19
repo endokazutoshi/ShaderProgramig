@@ -1,6 +1,5 @@
 #include "Texture.h"
 #include "Direct3D.h"
-
 #include <DirectXTex.h>
 
 #pragma comment(lib,"DirectXTex.lib")
@@ -65,8 +64,13 @@ HRESULT Texture::Load(string filename)
 
 
 
+
+
 void Texture::Release()
 {
 	SAFE_RELEASE(pSampler_);
 	SAFE_RELEASE(pSRV_);
 }
+
+
+

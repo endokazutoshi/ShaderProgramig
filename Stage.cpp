@@ -44,7 +44,7 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("assets/Torus.fbx");
+    hModel_ = Model::Load("assets/fiveO.fbx");
     hGround_ = Model::Load("assets/Ground.fbx");
     hLightBall_ = Model::Load("assets/RedBall.fbx");
     
@@ -53,7 +53,7 @@ void Stage::Initialize()
     assert(hLightBall_ >= 0);
     Camera::SetPosition(XMVECTOR{ 0, 10, -20, 0 });
     Camera::SetTarget(XMVECTOR{ 0, 2, 0, 0 });
-    trDonuts.position_ = {0, 2, 0};
+    trDonuts.position_ = {0, -1, 0};
     trDonuts.rotate_ = { 0, 0, 0 };
     trDonuts.scale_ = {  1,1,1 };
 
@@ -156,3 +156,5 @@ void Stage::Draw()
 void Stage::Release()
 {
 }
+
+

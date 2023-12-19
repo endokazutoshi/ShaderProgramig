@@ -22,4 +22,3 @@ public:
 	ID3D11SamplerState* GetSampler() { return pSampler_; }
 	ID3D11ShaderResourceView* GetSRV() { return pSRV_; }
 };
-

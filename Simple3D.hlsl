@@ -90,15 +90,15 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 n3 = float4(3 / 4.0, 3 / 4.0, 3 / 4.0, 1);
 	float4 n4 = float4(4 / 4.0, 4 / 4.0, 4 / 4.0, 1);
 
-	float4 tI = 0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
-		+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);
+	//float4 tI = 0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
+	//	+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);
 
-	float2 uv;
+	//float2 uv;
 
-	uv.x = inData.color.x;
-	uv.y = 0;
+	//uv.x = inData.color.x;
+	//uv.y = 0;
 
-	return g_toon_texture.Sample(g_sampler, uv);
+	//return g_toon_texture.Sample(g_sampler, uv);
 
 	//if (inData.color.x < 1 / 30)
 	//{
@@ -114,20 +114,21 @@ float4 PS(VS_OUT inData) : SV_Target
 	//}
 
 
-	//if (isTextured == 0)
-	//{
-	//	diffuse = lightSource * diffuseColor * inData.color;
-	//	ambient = lightSource * diffuseColor * ambientColor;
-	//}
-	//else
-	//{
-	//	diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
-	//	ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
-	//}
-	/*return diffuse + ambient;*/
+	if (isTextured == 0)
+	{
+		diffuse = lightSource * diffuseColor * inData.color;
+		ambient = lightSource * diffuseColor * ambientColor;
+	}
+	else
+	{
+		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
+		ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
+	}
+	//return diffuse + ambient;
+	//return specular;
 	//return diffuse + ambient + specular;
 	//return diffuse;
-
+	return ambient;
 	
 	//return g_texture.Sample(g_sampler, inData.uv);
 }
