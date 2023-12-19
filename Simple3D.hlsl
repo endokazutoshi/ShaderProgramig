@@ -90,15 +90,16 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 n3 = float4(3 / 4.0, 3 / 4.0, 3 / 4.0, 1);
 	float4 n4 = float4(4 / 4.0, 4 / 4.0, 4 / 4.0, 1);
 
-	//float4 tI = 0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
-	//	+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);
 
-	//float2 uv;
+	float2 uv;
 
-	//uv.x = inData.color.x;
-	//uv.y = 0;
+	uv.x = inData.color.x;
+	uv.y = 0;
 
-	//return g_toon_texture.Sample(g_sampler, uv);
+	float4 tI = g_toon_texture.Sample(g_sampler,uv);
+		
+		/*0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
+		+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);*/
 
 	//if (inData.color.x < 1 / 30)
 	//{
@@ -116,19 +117,25 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	if (isTextured == 0)
 	{
-		diffuse = lightSource * diffuseColor * inData.color;
+		diffuse = lightSource * diffuseColor * tI;
 		ambient = lightSource * diffuseColor * ambientColor;
 	}
 	else
 	{
-		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
+		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * tI;
 		ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
 	}
 	//return diffuse + ambient;
 	//return specular;
 	//return diffuse + ambient + specular;
 	//return diffuse;
-	return ambient;
-	
+	//return ambient;
+
+	//—ÖŠsŽ‹üƒxƒNƒgƒ‹“s–Ê‚Ì–@ü‚ÌŠp“x‚ª‚X‚O“x•t‹ß
+	if (dot(inData.normal, normalize(inData.eyev)) < 0.2)
+		return float4(0, 0, 0, 0);
+	else
+		return float4(1, 1, 1, 0);
+
 	//return g_texture.Sample(g_sampler, inData.uv);
 }
