@@ -168,6 +168,7 @@ HRESULT Direct3D::InitShader()
 	{
 		return E_FAIL;
 	}
+	if(FAILED(InitNormalMap()))
 	return S_OK;
 
 
@@ -384,6 +385,11 @@ HRESULT Direct3D::InitToonShader()
 	}
 
 	return S_OK;
+}
+
+HRESULT Direct3D::InitNormalMap()
+{
+
 }
 
 HRESULT Direct3D::InitShaderPointLight()
