@@ -30,7 +30,6 @@ cbuffer gmodel:register(b1)
 };
 
 
-
 //───────────────────────────────────────
 // 頂点シェーダー出力＆ピクセルシェーダー入力データ構造体
 //───────────────────────────────────────
@@ -127,17 +126,17 @@ float4 PS(VS_OUT inData) : SV_Target
 		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * tI;
 		ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
 	}
-	//return diffuse + ambient;
+	return diffuse + ambient;
 	//return specular;
 	//return diffuse + ambient + specular;
 	//return diffuse;
 	//return ambient;
 
 	//輪郭＝視線ベクトル都面の法線の角度が９０度付近
-	if (dot(inData.normal, normalize(inData.eyev)) < 0.2)
+	/*if (dot(inData.normal, normalize(inData.eyev)) < 0.2)
 		return float4(0, 0, 0, 0);
 	else
-		return float4(1, 1, 1, 0);
+		return float4(1, 1, 1, 0);*/
 
 	//return g_texture.Sample(g_sampler, inData.uv);
 }

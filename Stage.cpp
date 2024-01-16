@@ -71,6 +71,7 @@ void Stage::Initialize()
 //更新
 void Stage::Update()
 {
+    trDonuts.rotate_ = { 0, 2, 0 };
 
     if (Input::IsKeyUp(DIK_SPACE)) //モデルの明るさの変更
     {
