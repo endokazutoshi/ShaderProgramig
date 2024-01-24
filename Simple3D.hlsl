@@ -132,10 +132,11 @@ float4 PS(VS_OUT inData) : SV_Target
 	//return ambient;
 
 	//輪郭＝視線ベクトル都面の法線の角度が９０度付近
-	if (dot(inData.normal, normalize(inData.eyev)) < 0.2)
-		return float4(0, 0, 0, 0);
-	else
-		return float4(1, 1, 1, 0);
-
+    float NV = dot(inData.normal, normalize(inData.eyev));
+    if (abs(NV) < 0.3)
+        return float4(0, 0, 0, 0);
+    else
+        return diffuse + ambient + specular;
+	
 	//return g_texture.Sample(g_sampler, inData.uv);
 }

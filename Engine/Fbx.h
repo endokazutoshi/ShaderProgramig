@@ -1,6 +1,6 @@
 #pragma once
 
- #include <d3d11.h>
+#include <d3d11.h>
 #include <fbxsdk.h>
 #include <string>
 #include "Transform.h"
@@ -28,6 +28,7 @@ class Fbx
 	struct MATERIAL
 	{
 		Texture* pTexture;
+		Texture* pNormalTexure;
 		XMFLOAT4 diffuse;
 		XMFLOAT4 ambiemt;
 		XMFLOAT4 specular;
@@ -50,7 +51,8 @@ class Fbx
 	{
 		XMVECTOR position;//位置
 		XMVECTOR uv; //テクスチャ座標
-		XMVECTOR normal; //法線ベクトル
+		XMVECTOR normal;  //法線
+		XMVECTOR tangent; //接線
 	};
 
 	int vertexCount_;	//頂点数
@@ -62,7 +64,7 @@ class Fbx
 	ID3D11Buffer* pConstantBuffer_;
 	MATERIAL* pMaterialList_;
 	vector <int> indexCount_;
-	
+
 	void InitVertex(fbxsdk::FbxMesh* mesh);
 	void InitIndex(fbxsdk::FbxMesh* mesh);
 	void IntConstantBuffer();
