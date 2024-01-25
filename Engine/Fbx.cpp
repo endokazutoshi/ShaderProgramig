@@ -307,7 +307,7 @@ void Fbx::InitMaterial(fbxsdk::FbxNode* pNode)
 
 void Fbx::Draw(Transform& transform)
 {
-	Direct3D::SetShader(SHADER_OUTLINE);
+	Direct3D::SetShader(SHADER_NORMALMAP);
 
 	transform.Calclation();//トランスフォームを計算
 	for (int j = 0; j < 2; j++) {
@@ -358,18 +358,18 @@ void Fbx::Draw(Transform& transform)
 			if (pMaterialList_[i].pNormalTexure)
 			{
 				ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pNormalTexure->GetSRV();
-				Direct3D::pContext_->PSSetShaderResources(2, 1, &pSRV);
+				Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRV);
 			}
 
 
-			ID3D11ShaderResourceView* pSRVToon = pToonTex_->GetSRV();
-			Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRVToon);
+			//ID3D11ShaderResourceView* pSRVToon = pToonTex_->GetSRV();
+			//Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRVToon);
 
 
 			//描画
 			Direct3D::pContext_->DrawIndexed(indexCount_[i], 0, 0);
 		}
-		Direct3D::SetShader(SHADER_TOON);
+		//Direct3D::SetShader(SHADER_TOON);
 	}
 
 

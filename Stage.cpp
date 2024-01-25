@@ -44,22 +44,22 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("assets/Torus.fbx");
-    hGround_ = Model::Load("assets/Ground.fbx");
-    hLightBall_ = Model::Load("assets/RedBall.fbx");
+   /* hModel_ = Model::Load("Assets/Torus.fbx");
+    hGround_ = Model::Load("Assets/Ground.fbx");*/
+    hLightBall_ = Model::Load("Assets/Ball.fbx");
 
-    assert(hModel_ >= 0);
-    assert(hGround_ >= 0);
+   /* assert(hModel_ >= 0);
+    assert(hGround_ >= 0);*/
     assert(hLightBall_ >= 0);
     Camera::SetPosition(XMVECTOR{ 0, 10, -20, 0 });
     Camera::SetTarget(XMVECTOR{ 0, 2, 0, 0 });
-    trDonuts.position_ = { 0, 2, 0 };
-    trDonuts.rotate_ = { 0, 0, 0 };
-    trDonuts.scale_ = { 1,1,1 };
+    //trDonuts.position_ = { 0, 2, 0 };
+    //trDonuts.rotate_ = { 0, 0, 0 };
+    //trDonuts.scale_ = { 1,1,1 };
 
-    trGround.position_ = { 0, 0, 0 };
-    trGround.rotate_ = { 0, 0, 0 };
-    trGround.scale_ = { 10, 10, 10 };
+    //trGround.position_ = { 0, 0, 0 };
+    //trGround.rotate_ = { 0, 0, 0 };
+    //trGround.scale_ = { 10, 10, 10 };
 
     trLightBall.position_ = { 0, 0, 0 };
     trLightBall.rotate_ = { 0, 0, 0 };
