@@ -31,7 +31,7 @@ int Model::Load(std::string fileName)
 	}
 
 	modelList.push_back(pData);
-	return( modelList.size() - 1 );
+	return(modelList.size() - 1);
 }
 
 void Model::SetTransform(int hModel, Transform transform)
@@ -55,7 +55,7 @@ void Model::Draw(int hModel) {
 void Model::Release()
 {
 	bool isReffered = false; //éQè∆Ç≥ÇÍÇƒÇÈÅH
-	for (int i=0; i < modelList.size(); i++)
+	for (int i = 0; i < modelList.size(); i++)
 	{
 		for (int j = i + 1; j < modelList.size(); j++)
 		{

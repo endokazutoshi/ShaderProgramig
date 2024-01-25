@@ -22,4 +22,3 @@ namespace Model
 	void Release();
 	void ToggleRenderState();
 }
-
