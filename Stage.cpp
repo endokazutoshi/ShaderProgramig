@@ -44,18 +44,18 @@ Stage::~Stage()
 void Stage::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/fiveO.fbx");
+    /*hModel_ = Model::Load("Assets/Dornuts.fbx");*/
     //hGround_ = Model::Load("Assets/ground2.fbx");
-    hLightBall_ = Model::Load("Assets/RedBall.fbx");
+    hLightBall_ = Model::Load("Assets/Ball.fbx");
 
-    assert(hModel_ >= 0);
+    /*assert(hModel_ >= 0);*/
     //assert(hGround_ >= 0);
     assert(hLightBall_ >= 0);
     Camera::SetPosition(XMVECTOR{ 0, 10, -20, 0 });
     Camera::SetTarget(XMVECTOR{ 0, 2, 0, 0 });
-    trDonuts.position_ = { 0, 2, 0 };
-    trDonuts.rotate_ = { 0, 0, 0 };
-    trDonuts.scale_ = { 1,1,1 };
+    //trDonuts.position_ = { 0, 2, 0 };
+    //trDonuts.rotate_ = { 0, 0, 0 };
+    //trDonuts.scale_ = { 1,1,1 };
 
     //trGround.position_ = { 0, 0, 0 };
     //trGround.rotate_ = { 0, 0, 0 };
@@ -143,9 +143,9 @@ void Stage::Update()
 //描画
 void Stage::Draw()
 {
-    //q->Draw(transform_);
-    Model::SetTransform(hModel_, trDonuts);
-    Model::Draw(hModel_);
+    ////q->Draw(transform_);
+    //Model::SetTransform(hModel_, trDonuts);
+    //Model::Draw(hModel_);
     //Model::SetTransform(hGround_, trGround);
     //Model::Draw(hGround_);
     Model::SetTransform(hLightBall_, trLightBall);

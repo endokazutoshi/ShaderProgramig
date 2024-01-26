@@ -14,8 +14,8 @@ axisClass::~axisClass()
 
 void axisClass::Initialize()
 {
-    hModel_ = Model::Load("Assets/Arrow.fbx");
-    assert(hModel_ >= 0);//モデル番号が-1のままだったらあさーとに引っかかる
+    //hModel_ = Model::Load("Assets/Arrow.fbx");
+    //assert(hModel_ >= 0);//モデル番号が-1のままだったらあさーとに引っかかる
 
     //transform_.scale_.x = 0.1f;
     //transform_.scale_.y = 0.1f;
