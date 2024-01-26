@@ -56,7 +56,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 	outData.pos = mul(pos, matWVP);
 	outData.uv = uv;
 	normal.w = 0;
-	normal = mul(normal , matNormal);
+	normal = mul(normal, matNormal);
 	normal = normalize(normal);
 	outData.normal = normal;
 
@@ -76,43 +76,27 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-	float4 lightSource = float4(1.0, 1.0, 1.0, 1.0);		//ライト色＆明るさ　Iin
-	float ambentSource = float4(0.2, 0.2, 0.2, 1.0);		//アンビエント係数　Ka
+	float4 lightSource = float4(1.0, 1.0, 1.0, 1.0);
 	float4 diffuse;
 	float4 ambient;
 	float4 NL = saturate(dot(inData.normal, normalize(lightPosition)));
 	//float4 reflect = normalize(2 * NL * inData.normal - normalize(lightPosition));
 	float4 reflection = reflect(normalize(-lightPosition), inData.normal);
 	float4 specular = pow(saturate(dot(reflection, normalize(inData.eyev))), shininess) * specularColor;
-	//この辺で拡散販社の値をいろいろとする
-	float4 n1 = float4(1 / 4.0, 1/4.0, 1/4.0,1);
-	float4 n2 = float4(2 / 4.0, 2 / 4.0, 2 / 4.0, 1);
-	float4 n3 = float4(3 / 4.0, 3 / 4.0, 3 / 4.0, 1);
-	float4 n4 = float4(4 / 4.0, 4 / 4.0, 4 / 4.0, 1);
-
-
+	//この辺で拡散反射の値をごにょごにょする
+	//float4 n1 = float4(1 / 4.0, 1 / 4.0, 1 / 4.0, 1);
+	//float4 n2 = float4(2 / 4.0, 2 / 4.0, 2 / 4.0, 1);
+	//float4 n3 = float4(3 / 4.0, 3 / 4.0, 3 / 4.0, 1);
+	//float4 n4 = float4(4 / 4.0, 4 / 4.0, 4 / 4.0, 1);
+	//
+	//float4 tI = 0.1*step(n1, inData.color) + 0.3*step(n2, inData.color) 
+	//	      + 0.3*step(n3, inData.color) + 0.4*step(n4, inData.color);
 	float2 uv;
 
 	uv.x = inData.color.x;
 	uv.y = 0;
 
-	float4 tI = g_toon_texture.Sample(g_sampler,uv);
-		
-		/*0.1 * step(n1, inData.color) + 0.3 * step(n2, inData.color)
-		+ 0.3 * step(n3, inData.color) + 0.4 * step(n4, inData.color);*/
-
-	//if (inData.color.x < 1 / 30)
-	//{
-	//	nk = float4();
-	//}
-	//else if (inData.color.x < 2 / 3.0)
-	//{
-	//	nk = float4();
-	//}
-	//else
-	//{
-	//	nk = float4(1.0, 1.0, 1.0, 1.0)
-	//}
+	float4 tI = g_toon_texture.Sample(g_sampler, uv);
 
 
 	if (isTextured == 0)
@@ -125,18 +109,12 @@ float4 PS(VS_OUT inData) : SV_Target
 		diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * tI;
 		ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
 	}
-	//return diffuse + ambient;
-	//return specular;
-	//return diffuse + ambient + specular;
-	//return diffuse;
-	//return ambient;
+	////return diffuse + ambient + specular;
+	float NV = dot(inData.normal, normalize(inData.eyev));
+	if (abs(NV) < 0.3)
+		return float4(0, 0, 0, 0);
+	else
+		return diffuse + ambient + specular;
 
-	//輪郭＝視線ベクトル都面の法線の角度が９０度付近
-    float NV = dot(inData.normal, normalize(inData.eyev));
-    if (abs(NV) < 0.3)
-        return float4(0, 0, 0, 0);
-    else
-        return diffuse + ambient + specular;
-	
 	//return g_texture.Sample(g_sampler, inData.uv);
 }

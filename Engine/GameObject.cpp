@@ -7,7 +7,7 @@ GameObject::GameObject()
 }
 
 GameObject::GameObject(GameObject* parent, const std::string& name)
-	:pParent_(parent),objectName_(name),isDead_(false),pCollider_(nullptr)
+	:pParent_(parent), objectName_(name), isDead_(false), pCollider_(nullptr)
 {
 	if (parent != nullptr)
 		this->transform_.pParent_ = &(parent->transform_);
@@ -86,7 +86,7 @@ GameObject* GameObject::FindChildObject(string _objName)
 	else
 	{
 		//for (auto itr = childList_.begin();itr != childList_.end(); itr++)
-		for(auto itr: childList_)
+		for (auto itr : childList_)
 		{
 			GameObject* obj = itr->FindChildObject(_objName);
 			if (obj != nullptr)
@@ -103,7 +103,7 @@ GameObject* GameObject::GetRootJob()
 {
 	if (pParent_ == nullptr)
 		return this;
-	
+
 	return pParent_->GetRootJob();
 }
 
@@ -153,6 +153,6 @@ void GameObject::RoundRobin(GameObject* pTarget)
 	if (pTarget->pCollider_ != nullptr) //自分とターゲット
 		Collision(pTarget);
 	//自分の子供全部とターゲット
-	for (auto itr:pTarget->childList_)
+	for (auto itr : pTarget->childList_)
 		RoundRobin(itr);
 }
