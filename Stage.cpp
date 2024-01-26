@@ -46,7 +46,7 @@ void Stage::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Assets/fiveO.fbx");
     //hGround_ = Model::Load("Assets/ground2.fbx");
-    hLightBall_ = Model::Load("Assets/Ball.fbx");
+    hLightBall_ = Model::Load("Assets/RedBall.fbx");
 
     assert(hModel_ >= 0);
     //assert(hGround_ >= 0);

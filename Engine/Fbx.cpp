@@ -307,7 +307,7 @@ void Fbx::InitMaterial(fbxsdk::FbxNode* pNode)
 
 void Fbx::Draw(Transform& transform)
 {
-	Direct3D::SetShader(SHADER_NORMALMAP);
+	Direct3D::SetShader(SHADER_OUTLINE);
 
 	transform.Calclation();//トランスフォームを計算
 	for (int j = 0; j < 2; j++) {
